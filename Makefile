@@ -1,5 +1,10 @@
 .PHONY: setup up d b ps node
 
+
+init:
+	docker-compose -f docker-compose.tmp.yml build
+	docker-compose -f docker-compose.tmp.yml up -d
+
 setup:
 	@make up
 	@make ps
