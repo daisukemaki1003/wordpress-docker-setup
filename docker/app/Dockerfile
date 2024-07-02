@@ -1,4 +1,5 @@
-FROM php:8.1-apache
+FROM php:7.4-apache
+# FROM php:8.1-apache
 
 # PHP 設定ファイル
 # COPY php.ini /etc/php.ini
