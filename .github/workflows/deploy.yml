@@ -7,7 +7,7 @@ name: Build and Deploy
 jobs:
   FTP-Deploy-Action:
     name: FTP-Deploy-Action
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latestss
     steps:
       - uses: actions/checkout@master
       - name: FTP-Deploy-Action
@@ -17,4 +17,4 @@ jobs:
           FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
           LOCAL_DIR: "./www/html/"
-          REMOTE_DIR: "/ki-hi-ro.com/public_html/ki-hi-ro.com-2022/wp-content/themes/ki-hi-ro.com-2022/"
+          REMOTE_DIR: "/home/pnyvkigt/"
