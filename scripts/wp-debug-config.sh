@@ -3,6 +3,8 @@
 # Wait for WordPress to be fully set up
 sleep 30
 
+echo "Adding debug settings to wp-config.php"
+
 # Add debug settings to wp-config.php
 cat <<EOT >> /var/www/html/wp-config.php
 

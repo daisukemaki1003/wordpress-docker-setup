@@ -5,7 +5,7 @@ services:
       - "80:80"
     working_dir: /var/www/html
     volumes:
-      - "./www/html:/var/www/html"
+      - "./src:/var/www/html"
       - "./scripts:/docker-entrypoint-initdb.d"
     restart: always
     environment:

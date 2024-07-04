@@ -57,6 +57,6 @@ reset:
 	fi
 
 reset-app:
-	rm -rf www/html
+	rm -rf src/*
 reset-db:
 	rm -rf docker/mysql/storage
