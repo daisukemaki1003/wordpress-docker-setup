@@ -1,2 +1,6 @@
 .DS_Store
 .env
+
+# 開発環境に関するファイル以外を無視
+www/html/*
+docker/mysql/storage/*
