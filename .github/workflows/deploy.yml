@@ -1,50 +1,23 @@
-name: Wordpress Deploy
-
+name: Deploy to FTP
 on:
-  repository_dispatch:
-    types: [after_saving_wordpress]
   push:
     branches:
-      - main
+      - main()
 
 jobs:
   deploy:
-    runs-on: ${{ matrix.os }}
+    name: DeployCoreServer
 
-    strategy:
-      matrix:
-        os: [ubuntu-latest] # OSの種類とバージョン
-        node: [16.4] # nodeのバージョン
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout &#x1f6ce;
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-      - name: Setup node env &#x1f3d7;
-        uses: actions/setup-node@v2.1.5
+      - name: Sync files
+        uses: SamKirkland/FTP-Deploy-Action@4.1.0 #（※21年12月31日時点最新版は4.2です）
         with:
-          node-version: ${{ matrix.node }}
-          check-latest: true
-
-      - name: Cache node_modules &#x1f4e6;
-        uses: actions/cache@v2.1.4
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
-      - name: Install dependencies &#x1f468;&#x1f3fb;&#x200d;&#x1f4bb;
-        run: npm ci --prefer-offline --no-audit
-
-      - name: Nuxt Generate
-        run: npm run generate
-
-      - name: FTP Deploy
-        uses: SamKirkland/FTP-Deploy-Action@4.3.0 # FTPデプロイ用のアクション（https://github.com/SamKirkland/FTP-Deploy-Action）
-        with:
-          server: ${{ secrets.FTP_SERVER }} # FTPのホスト名（サーバー名やIPアドレス）
-          username: ${{ secrets.FTP_USERNAME }} # FTPのユーザー名
-          password: ${{ secrets.FTP_PASSWORD }} # FTPのパスワード
-          server-dir: ${{ secrets.FTP_SERVER_DIR }} # アップロード先のリモートパス
-          local-dir: ./src/ # アップロード元のパス（基本的には、npm run generate で出力されるディレクトリを指定）
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: ${{ secrets.FTP_SERVER_DIR }}
+          local-dir: ./src/
