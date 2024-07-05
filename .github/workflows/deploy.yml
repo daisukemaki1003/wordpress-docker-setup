@@ -46,5 +46,5 @@ jobs:
           server: ${{ secrets.FTP_SERVER }} # FTPのホスト名（サーバー名やIPアドレス）
           username: ${{ secrets.FTP_USERNAME }} # FTPのユーザー名
           password: ${{ secrets.FTP_PASSWORD }} # FTPのパスワード
-          local-dir: ./dist/ # アップロード元のパス（基本的には、npm run generate で出力されるディレクトリを指定）
           server-dir: ${{ secrets.FTP_SERVER_DIR }} # アップロード先のリモートパス
+          local-dir: ./src/ # アップロード元のパス（基本的には、npm run generate で出力されるディレクトリを指定）
