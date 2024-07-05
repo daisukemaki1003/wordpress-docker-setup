@@ -1,27 +1,50 @@
-on: push
-name: 🚀 Deploy website on push
+name: Wordpress Deploy
+
+on:
+  repository_dispatch:
+    types: [after_saving_wordpress]
+  push:
+    branches:
+      - main
+
 jobs:
-  web-deploy:
-    name: 🎉 Deploy
-    runs-on: ubuntu-latest
+  deploy:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest] # OSの種類とバージョン
+        node: [16.4] # nodeのバージョン
+
     steps:
-      - name: 🚚 Get latest code
-        uses: actions/checkout@v3
+      - name: Checkout &#x1f6ce;
+        uses: actions/checkout@v2
 
-      - name: 📂 Sync files
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      - name: Setup node env &#x1f3d7;
+        uses: actions/setup-node@v2.1.5
         with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: ${{ secrets.FTP_SERVER_DIR }}
+          node-version: ${{ matrix.node }}
+          check-latest: true
 
-          exclude: |
-            **/.git*
-            **/.git*/**
-            .gitignore
-            .composer.lock
-            .composer.json
-            **/vendor/**
-            **/src/**
-            .vscode/**
+      - name: Cache node_modules &#x1f4e6;
+        uses: actions/cache@v2.1.4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies &#x1f468;&#x1f3fb;&#x200d;&#x1f4bb;
+        run: npm ci --prefer-offline --no-audit
+
+      - name: Nuxt Generate
+        run: npm run generate
+
+      - name: FTP Deploy
+        uses: SamKirkland/FTP-Deploy-Action@4.3.0 # FTPデプロイ用のアクション（https://github.com/SamKirkland/FTP-Deploy-Action）
+        with:
+          server: ${{ secrets.FTP_SERVER }} # FTPのホスト名（サーバー名やIPアドレス）
+          username: ${{ secrets.FTP_USERNAME }} # FTPのユーザー名
+          password: ${{ secrets.FTP_PASSWORD }} # FTPのパスワード
+          local-dir: ./dist/ # アップロード元のパス（基本的には、npm run generate で出力されるディレクトリを指定）
+          server-dir: ${{ secrets.FTP_SERVER_DIR }} # アップロード先のリモートパス
