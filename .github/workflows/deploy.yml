@@ -7,17 +7,14 @@ on:
 jobs:
   deploy:
     name: DeployCoreServer
-
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
-
       - name: Sync files
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5 #（※21年12月31日時点最新版は4.2です）
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: ${{ secrets.FTP_SERVER_DIR }}
+          server: ${{ env.FTP_SERVER }}
+          username: ${{ env.FTP_USERNAME }}
+          password: ${{ env.FTP_PASSWORD }}
+          server-dir: ${{ env.FTP_SERVER_DIR }}
           local-dir: ./src/
