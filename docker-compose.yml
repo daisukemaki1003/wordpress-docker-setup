@@ -4,9 +4,9 @@ services:
       context: "docker/app/"
     ports:
       - "80:80"
-    working_dir: /var/www
+    working_dir: /var/www/html
     volumes:
-      - "./src/:/var/www"
+      - "./src:/var/www/html"
       - "./docker/app/apache2/apache2.conf:/etc/apache2/apache2.conf"
       - "./docker/app/apache2/sites-available/000-default.conf:/etc/apache2/sites-available/000-default.conf"
     depends_on:
