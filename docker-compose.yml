@@ -3,8 +3,8 @@ services:
     build:
       context: "docker/app/"
     ports:
-      - "8085:80"
-    working_dir: /var/src
+      - "80:80"
+    working_dir: /var/www
     volumes:
       - "./src/:/var/www"
       - "./docker/app/apache2/apache2.conf:/etc/apache2/apache2.conf"

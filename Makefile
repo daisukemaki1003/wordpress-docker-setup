@@ -1,4 +1,4 @@
-.PHONY: setup up d b ps node
+.PHONY: init prepare build up d b ps node
 
 
 init:
@@ -6,7 +6,8 @@ init:
 	@docker-compose -f docker-compose.tmp.yml up -d
 	@make ps
 
-setup:
+prepare:
+	@make build
 	@make up
 	@make ps
 
@@ -16,12 +17,12 @@ down:
 
 d:
 	@docker compose down
+build:
+	@docker compose build
 up:
 	@docker compose up -d
 ps:
 	@docker compose ps
-node:
-	@docker compose exec node bash
 clear:
 	@docker system prune
 
@@ -30,9 +31,9 @@ PHP_VERSION_CMD=docker exec $(WP_CONTAINER) php -v
 MYSQL_VERSION_CMD=docker exec $(WP_CONTAINER) mysql --version
 WP_CLI_VERSION_CMD=docker exec $(WP_CONTAINER) wp --version
 
-.PHONY: check-versions
+.PHONY: cv
 
-v:
+cv:
 	@echo "Checking PHP version..."
 	@$(PHP_VERSION_CMD)
 	@echo "Checking MySQL version..."
@@ -57,6 +58,7 @@ reset:
 	fi
 
 reset-app:
-	rm -rf src/*
+	@rm -rf src/*
 reset-db:
-	rm -rf docker/mysql/storage
+	@rm -rf docker/mysql/storage
+
