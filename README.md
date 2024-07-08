@@ -18,8 +18,8 @@
 2. [ディレクトリ構成](#ディレクトリ構成)
 3. [開発環境構築](#開発環境構築)
 4. [デプロイ](#デプロイ)
-5. [参考資料](#参考資料)
-6. [トラブルシューティング](#トラブルシューティング)
+5. [トラブルシューティング](#トラブルシューティング)
+6. [参考資料](#参考資料)
 
 ## 環境
 
@@ -171,14 +171,14 @@ make down
 
 デプロイが成功したかどうかを確認するためには、デプロイ先の Web サイトにアクセスし、変更内容が反映されているか確認してください。
 
-### 参考資料
-
-[Wordpress の Docker 環境作成 (PHP8, apache, MariaDB, Xdebug)](https://zenn.dev/dragonarrow/articles/058fa1c8269ea2)
-
 ## トラブルシューティング
 
 ### Test Error
 
 解決手段を記述
+
+### 参考資料
+
+[Wordpress の Docker 環境作成 (PHP8, apache, MariaDB, Xdebug)](https://zenn.dev/dragonarrow/articles/058fa1c8269ea2)
 
 <p align="right">(<a href="#top">トップへ</a>)</p>
