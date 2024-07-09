@@ -1,5 +1,6 @@
 services:
   app:
+    container_name: wordpress
     build:
       context: "docker/app/"
     ports:
@@ -11,12 +12,14 @@ services:
       - "./docker/app/apache2/sites-available/000-default.conf:/etc/apache2/sites-available/000-default.conf"
     depends_on:
       - db
-    # env_file:
-    #   - .env
+    env_file:
+      - .env
   db:
     build:
       context: "docker/mysql/"
     command: --default-authentication-plugin=mysql_native_password
+    container_name: ${MYSQL_HOST}
+    hostname: ${MYSQL_HOST}
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_HOST: ${MYSQL_HOST}
@@ -32,6 +35,7 @@ services:
     ports:
       - "3306:3306"
   phpmyadmin:
+    container_name: phpmyadmin
     image: phpmyadmin:latest
     ports:
       - 8080:80
