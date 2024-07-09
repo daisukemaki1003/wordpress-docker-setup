@@ -9,15 +9,10 @@ services:
       - "./src:/var/www/html"
       - "./docker/app/apache2/apache2.conf:/etc/apache2/apache2.conf"
       - "./docker/app/apache2/sites-available/000-default.conf:/etc/apache2/sites-available/000-default.conf"
-    environment:
-      WORDPRESS_DB_HOST: ${MYSQL_HOST}:3306
-      WORDPRESS_DB_USER: ${MYSQL_USER}
-      WORDPRESS_DB_NAME: ${MYSQL_DATABASE}
-      WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
     depends_on:
       - db
-    env_file:
-      - .env
+    # env_file:
+    #   - .env
   db:
     build:
       context: "docker/mysql/"
@@ -32,6 +27,8 @@ services:
     volumes:
       - "./docker/mysql/storage/:/var/lib/mysql"
       - "./docker/mysql/initdb/:/docker-entrypoint-initdb.d"
+    env_file:
+      - .env
     ports:
       - "3306:3306"
   phpmyadmin:
