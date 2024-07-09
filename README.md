@@ -173,9 +173,54 @@ make down
 
 ## トラブルシューティング
 
-### Test Error
+### ビルドエラー
 
-解決手段を記述
+.htaccess にコピペ
+
+```
+# BEGIN WordPress
+# The directives (lines) between "BEGIN WordPress" and "END WordPress" are
+# dynamically generated, and should only be modified via WordPress filters.
+# Any changes to the directives between these markers will be overwritten.
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+
+# END WordPress
+```
+
+### Xdebug のログファイルの設定エラー
+
+##### 1. `php.ini`の編集
+
+`php.ini`ファイルに以下の設定を追加します：
+
+```ini
+zend_extension=xdebug.so
+xdebug.mode=debug
+xdebug.start_with_request=yes
+xdebug.client_host=host.docker.internal
+xdebug.client_port=9004
+xdebug.log=/var/log/xdebug.log
+```
+
+##### 2. ログファイルディレクトリの作成と権限設定
+
+コンテナ内で以下のコマンドを実行します：
+
+```bash
+docker-compose exec app bash
+mkdir -p /var/log
+touch /var/log/xdebug.log
+chmod 777 /var/log/xdebug.log
+exit
+```
 
 ### 参考資料
 

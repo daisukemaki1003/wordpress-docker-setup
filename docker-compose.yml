@@ -11,8 +11,8 @@ services:
       - "./docker/app/apache2/sites-available/000-default.conf:/etc/apache2/sites-available/000-default.conf"
     depends_on:
       - db
-    env_file:
-      - .env
+    # env_file:
+    #   - .env
   db:
     build:
       context: "docker/mysql/"
@@ -27,6 +27,8 @@ services:
     volumes:
       - "./docker/mysql/storage/:/var/lib/mysql"
       - "./docker/mysql/initdb/:/docker-entrypoint-initdb.d"
+    env_file:
+      - .env
     ports:
       - "3306:3306"
   phpmyadmin:

@@ -45,6 +45,12 @@ RUN pecl install xdebug-3.1.5 && \
 RUN mv /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled
 RUN /bin/sh -c a2enmod rewrite
 
+# 必要なモジュールを有効化する
+RUN /bin/sh -c a2enmod include
+
+# 必要なモジュールを有効化する
+# RUN /bin/sh -c a2enmod authz_groupfile
+
 # タイムゾーン設定
 RUN ln -sf  /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 
