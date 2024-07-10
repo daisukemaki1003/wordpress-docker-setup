@@ -2,5 +2,6 @@
 .env
 
 # 開発環境に関するファイル以外を無視
-src/*
+wordpress/*
+docker/mysql/initdb/*
 docker/mysql/storage/*

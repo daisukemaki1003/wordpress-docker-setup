@@ -7,9 +7,16 @@ services:
       - "80:80"
     working_dir: /var/www/html
     volumes:
-      - "./src:/var/www/html"
+      - "./wordpress:/var/www/html"
+      - "./theme:/var/www/html/wp-content/themes/custom-theme"
       - "./docker/app/apache2/apache2.conf:/etc/apache2/apache2.conf"
       - "./docker/app/apache2/sites-available/000-default.conf:/etc/apache2/sites-available/000-default.conf"
+    environment:
+      WORDPRESS_DEBUG: 1
+      WORDPRESS_DB_NAME: ${MYSQL_DATABASE}
+      WORDPRESS_DB_USER: ${MYSQL_USER}
+      WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
+      WORDPRESS_DB_HOST: ${MYSQL_HOST}
     depends_on:
       - db
     env_file:
