@@ -3,5 +3,12 @@
 
 # 開発環境に関するファイル以外を無視
 wordpress/*
+theme/images/*
+theme/scripts/*
+theme/styles/*
+theme/templates/*
+theme/functions.php
+theme/style.css
 docker/mysql/initdb/*
 docker/mysql/storage/*
+node_modules
