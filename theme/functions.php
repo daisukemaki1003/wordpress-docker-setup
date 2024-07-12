@@ -55,3 +55,25 @@ function my_deregister_styles()
 
 //ヘッダー非表示
 add_filter('show_admin_bar', '__return_false');
+
+
+// サブディレクトリのパスを定義
+define('THEME_TEMPLATES_DIR', get_template_directory() . '/templates');
+
+// テンプレートファイルをロードする関数
+function load_subdir_template($template)
+{
+    $new_template = THEME_TEMPLATES_DIR . '/' . basename($template);
+    if (file_exists($new_template)) {
+        return $new_template;
+    }
+    return $template;
+}
+add_filter('template_include', 'load_subdir_template');
+
+// スタイルシートの読み込み
+function custom_theme_enqueue_styles()
+{
+    wp_enqueue_style('custom-theme-style', get_template_directory_uri() . '/style.css');
+}
+add_action('wp_enqueue_scripts', 'custom_theme_enqueue_styles');
