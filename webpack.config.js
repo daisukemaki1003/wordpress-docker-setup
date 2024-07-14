@@ -1,96 +1,63 @@
-import path from 'path';
-import { fileURLToPath } from 'url';
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import { CleanWebpackPlugin } from 'clean-webpack-plugin';
-import ImageminPlugin from 'imagemin-webpack';
-import ImageminMozjpeg from 'imagemin-mozjpeg';
-import BrowserSyncPlugin from 'browser-sync-webpack-plugin';
-import autoprefixer from 'autoprefixer';
-import postcssMediaMinmax from 'postcss-media-minmax';
+const path = require("path");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
-// `__dirname` の代替として `import.meta.url` を使用
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const mode = process.env.NODE_ENV || 'development'
+const prod = mode === 'production'
 
-export default (env, argv) => {
-    const isProduction = argv.mode === 'production';
-
-    return {
-        entry: {
-            main: './theme/scripts/app.ts',
-            styles: './theme/styles/style.scss',
+module.exports = {
+    entry: {
+        bundle: './theme/js/app.ts',
+        global: './theme/css/style.scss'
+    },
+    resolve: {
+        alias: {
+            svelte: path.resolve('node_modules', 'svelte')
         },
-        output: {
-            filename: 'assets/js/[name].bundle.js',
-            path: path.resolve(__dirname, 'public'),
-        },
-        module: {
-            rules: [
-                {
-                    test: /\.ts$/,
-                    use: 'ts-loader',
-                    exclude: /node_modules/,
-                },
-                {
-                    test: /\.scss$/,
-                    use: [
-                        MiniCssExtractPlugin.loader,
-                        'css-loader',
-                        {
-                            loader: 'postcss-loader',
-                            options: {
-                                postcssOptions: {
-                                    plugins: [
-                                        autoprefixer(),
-                                        postcssMediaMinmax(),
-                                    ],
-                                },
-                            },
-                        },
-                        'sass-loader',
-                    ],
-                },
-                {
-                    test: /\.(jpg|jpeg|png|svg|gif)$/,
-                    use: [
-                        {
-                            loader: 'file-loader',
-                            options: {
-                                name: 'assets/img/[name].[ext]',
-                            },
-                        },
-                    ],
-                },
-            ],
-        },
-        resolve: {
-            extensions: ['.ts', '.js'],
-        },
-        plugins: [
-            new CleanWebpackPlugin(),
-            new MiniCssExtractPlugin({
-                filename: 'assets/css/[name].css',
-            }),
-            new ImageminPlugin({
-                plugins: [
-                    ImageminMozjpeg({
-                        quality: 90,
-                    }),
-                ],
-            }),
-            new BrowserSyncPlugin({
-                host: 'localhost',
-                port: 3000,
-                server: { baseDir: ['dist'] },
-                files: ['./dist'],
-            }),
-        ],
-        devServer: {
-            static: {
-                directory: path.join(__dirname, 'dist'),
+        extensions: ['.mjs', '.js', '.svelte'],
+        mainFields: ['svelte', 'browser', 'module', 'main']
+    },
+    output: {
+        filename: 'js/[name].bundle.js', // JSファイルの出力先
+        path: path.resolve(__dirname, 'dist'), // 出力ディレクトリ
+        clean: true, // 出力ディレクトリをクリーンアップ
+    },
+    module: {
+        rules: [
+            {
+                test: /\.ts$/,
+                use: 'ts-loader',
+                exclude: /node_modules/,
             },
-            compress: true,
-            port: 9000,
-        },
-    };
+            {
+                test: /\.scss$/,
+                use: [
+                    { loader: MiniCssExtractPlugin.loader },
+                    { loader: 'css-loader' },
+                    { loader: 'sass-loader' }
+                ]
+            },
+            {
+                test: /\.(png|jpe?g|gif|svg)$/i,
+                type: 'asset/resource',
+                generator: {
+                    filename: 'img/[name][ext]', // 画像ファイルの出力先
+                },
+            },
+        ],
+    },
+    resolve: {
+        extensions: ['.ts', '.js'],
+    },
+    plugins: [
+        new CleanWebpackPlugin(),
+        new MiniCssExtractPlugin({
+            filename: 'css/[name].css', // CSSファイルの出力先
+        }),
+
+    ],
+    devtool: prod ? false : 'source-map',
+    stats: {
+        errorDetails: true,
+    },
 };
