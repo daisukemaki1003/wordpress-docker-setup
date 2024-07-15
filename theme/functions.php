@@ -74,3 +74,9 @@ function custom_theme_enqueue_styles()
 }
 
 add_action('wp_enqueue_scripts', 'custom_theme_enqueue_styles');
+
+// 画像パスの取得
+function get_image_path($image_name)
+{
+    return get_stylesheet_directory_uri() . '/assets/img/' . $image_name;
+}
