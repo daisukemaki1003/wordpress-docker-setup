@@ -2,8 +2,8 @@
 
 
 init:
-	@docker-compose -f docker-compose.tmp.yml build
-	@docker-compose -f docker-compose.tmp.yml up -d
+	@docker-compose -f docker-compose.init.yml build
+	@docker-compose -f docker-compose.init.yml up -d
 	@make ps
 
 prepare:
