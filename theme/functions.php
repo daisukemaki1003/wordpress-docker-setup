@@ -66,3 +66,11 @@ function custom_theme_footer()
 {
     return get_template_part('templates/footer');
 }
+
+function custom_theme_enqueue_styles()
+{
+    // メインスタイルシートの読み込み
+    wp_enqueue_style('custom-theme-style', get_template_directory_uri() . '/assets/css/style.css');
+}
+
+add_action('wp_enqueue_scripts', 'custom_theme_enqueue_styles');
