@@ -26,7 +26,7 @@ ps:
 clear:
 	@docker system prune
 
-WP_CONTAINER=wordpress
+WP_CONTAINER=wordpress 
 PHP_VERSION_CMD=docker exec $(WP_CONTAINER) php -v
 MYSQL_VERSION_CMD=docker exec $(WP_CONTAINER) mysql --version
 WP_CLI_VERSION_CMD=docker exec $(WP_CONTAINER) wp --version

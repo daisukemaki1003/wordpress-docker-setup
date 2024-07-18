@@ -6,7 +6,7 @@ services:
     working_dir: /var/www/html
     volumes:
       - "./wordpress:/var/www/html"
-      - "./theme:/var/www/html/wp-content/themes/custom-theme"
+      - "./theme:/var/www/html/wp-content/themes/${THEME_NAME}"
       - "./scripts:/docker-entrypoint-initdb.d"
     restart: always
     environment:

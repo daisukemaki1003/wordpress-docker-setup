@@ -3,9 +3,6 @@
 
 # 開発環境に関するファイル以外を無視
 wordpress/*
-theme/img/*
-theme/js/*
-theme/css/*
 theme/templates/*
 theme/functions.php
 theme/style.css
@@ -14,3 +11,5 @@ docker/mysql/storage/*
 node_modules
 
 dist/*
+src/*
+theme/*
