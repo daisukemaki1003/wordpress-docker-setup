@@ -8,7 +8,7 @@ services:
     working_dir: /var/www/html
     volumes:
       - "./wordpress:/var/www/html"
-      - "./theme:/var/www/html/wp-content/themes/${THEME_NAME}"
+      - "./src/wp-content:/var/www/html/wp-content"
       - "./dist:/var/www/html/assets"
       - "./docker/app/apache2/apache2.conf:/etc/apache2/apache2.conf"
       - "./docker/app/apache2/sites-available/000-default.conf:/etc/apache2/sites-available/000-default.conf"
