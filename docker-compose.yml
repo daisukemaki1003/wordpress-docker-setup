@@ -12,8 +12,8 @@ services:
       - ./src/themes:/var/www/html/wp-content/themes
       - ./docker/app/apache2/apache2.conf:/etc/apache2/apache2.conf
       - ./docker/app/apache2/sites-available/000-default.conf:/etc/apache2/sites-available/000-default.conf
-      - ./dist:/var/www/html/assets
-      # - assets:/var/www/html/assets
+      # - ./dist:/var/www/html/assets
+      - assets:/var/www/html/assets
     environment:
       WORDPRESS_DEBUG: 1
       WORDPRESS_DB_NAME: ${MYSQL_DATABASE}
@@ -39,8 +39,8 @@ services:
       - 3001:3001
     volumes:
       - ./src/assets:/var/www/html/src
-      - ./dist:/var/www/html/dist
-      # - assets:/var/www/html/dist
+      # - ./dist:/var/www/html/dist
+      - assets:/var/www/html/dist
     command: "npm run dev"
   db:
     build:
@@ -73,5 +73,5 @@ services:
       PMA_PASSWORD: ${MYSQL_PASSWORD}
     depends_on:
       - db
-# volumes:
-#   assets:
+volumes:
+  assets:
