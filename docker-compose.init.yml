@@ -1,13 +1,12 @@
 services:
-  app:
+  wordpress:
     image: wordpress:6.5.5
     ports:
       - "80:80"
     working_dir: /var/www/html
     volumes:
       - "./wordpress:/var/www/html"
-      - "./src/wp-content:/var/www/html/wp-content"
-      - "./scripts:/docker-entrypoint-initdb.d"
+      # - "./scripts:/docker-entrypoint-initdb.d"
     restart: always
     environment:
       WORDPRESS_DEBUG: 1

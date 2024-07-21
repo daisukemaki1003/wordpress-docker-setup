@@ -1,17 +1,19 @@
 services:
-  app:
-    container_name: wordpress
+  wordpress:
     build:
-      context: "docker/app/"
+      context: docker/app/
     ports:
       - "80:80"
     working_dir: /var/www/html
     volumes:
-      - "./wordpress:/var/www/html"
-      - "./src/wp-content:/var/www/html/wp-content"
-      - "./dist:/var/www/html/assets"
-      - "./docker/app/apache2/apache2.conf:/etc/apache2/apache2.conf"
-      - "./docker/app/apache2/sites-available/000-default.conf:/etc/apache2/sites-available/000-default.conf"
+      - ./wordpress:/var/www/html
+      - ./src/plugins:/var/www/html/wp-content/plugins
+      - ./src/uploads:/var/www/html/wp-content/uploads
+      - ./src/themes:/var/www/html/wp-content/themes
+      - ./docker/app/apache2/apache2.conf:/etc/apache2/apache2.conf
+      - ./docker/app/apache2/sites-available/000-default.conf:/etc/apache2/sites-available/000-default.conf
+      - ./dist:/var/www/html/assets
+      # - assets:/var/www/html/assets
     environment:
       WORDPRESS_DEBUG: 1
       WORDPRESS_DB_NAME: ${MYSQL_DATABASE}
@@ -22,6 +24,24 @@ services:
       - db
     env_file:
       - .env
+  browsersync:
+    depends_on:
+      - wordpress
+    build:
+      context: ./src
+      dockerfile: ../docker/browsersync/Dockerfile
+    environment:
+      - SITE_URL=wordpress
+    env_file:
+      - ./.env
+    ports:
+      - 3000:3000
+      - 3001:3001
+    volumes:
+      - ./src/assets:/var/www/html/src
+      - ./dist:/var/www/html/dist
+      # - assets:/var/www/html/dist
+    command: "npm run dev"
   db:
     build:
       context: "docker/mysql/"
@@ -36,8 +56,8 @@ services:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       TZ: Asia/Tokyo
     volumes:
-      - "./docker/mysql/storage/:/var/lib/mysql"
-      - "./docker/mysql/initdb/:/docker-entrypoint-initdb.d"
+      - ./docker/mysql/storage/:/var/lib/mysql
+      - ./docker/mysql/initdb/:/docker-entrypoint-initdb.d
     env_file:
       - .env
     ports:
@@ -53,3 +73,5 @@ services:
       PMA_PASSWORD: ${MYSQL_PASSWORD}
     depends_on:
       - db
+# volumes:
+#   assets:
