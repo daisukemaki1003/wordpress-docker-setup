@@ -1,0 +1,23 @@
+{
+    "name": "wordpress-setup",
+    "version": "0.1.0",
+    "type": "module",
+    "scripts": {
+        "commit": "cz",
+        "prepare": "husky install"
+    },
+    "devDependencies": {
+        "commitizen": "^4.3.0",
+        "cz-conventional-changelog": "^3.3.0",
+        "cz-customizable": "^7.2.1",
+        "husky": "^8.0.0"
+    },
+    "config": {
+        "commitizen": {
+            "path": "./node_modules/cz-customizable"
+        },
+        "cz-customizable": {
+            "config": ".cz-config.cjs"
+        }
+    }
+}

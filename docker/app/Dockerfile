@@ -48,10 +48,19 @@ RUN /bin/sh -c a2enmod rewrite
 # 必要なモジュールを有効化する
 RUN /bin/sh -c a2enmod include
 
-# 必要なモジュールを有効化する
-# RUN /bin/sh -c a2enmod authz_groupfile
-
 # タイムゾーン設定
 RUN ln -sf  /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+
+# 作業ディレクトリを設定
+WORKDIR /var/www/html
+
+# アプリケーションコードをコピー
+COPY . /var/www/html/
+
+RUN rm -f /var/www/html/.htaccess
+
+# 一時ディレクトリに .htaccess ファイルをコピー
+COPY .htaccess /var/www/html/.htaccess
+
 
 CMD ["apache2-foreground"]

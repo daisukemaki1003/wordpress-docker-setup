@@ -1,15 +1,18 @@
 services:
-  app:
-    image: wordpress:6.5.5
+  wordpress:
+    image: wordpress:${WP_VERSION}
     ports:
       - "80:80"
     working_dir: /var/www/html
     volumes:
-      - "./src:/var/www/html"
-      - "./scripts:/docker-entrypoint-initdb.d"
+      - "./wordpress:/var/www/html"
     restart: always
     environment:
       WORDPRESS_DEBUG: 1
+      WORDPRESS_DB_NAME: ${MYSQL_DATABASE}
+      WORDPRESS_DB_USER: ${MYSQL_USER}
+      WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
+      WORDPRESS_DB_HOST: ${MYSQL_HOST}
     depends_on:
       - db
     env_file:
@@ -18,6 +21,8 @@ services:
     build:
       context: "docker/mysql/"
     command: --default-authentication-plugin=mysql_native_password
+    container_name: ${MYSQL_HOST}
+    hostname: ${MYSQL_HOST}
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_HOST: ${MYSQL_HOST}

@@ -1,22 +1,55 @@
 services:
-  app:
+  wordpress:
+    container_name: wordpress
     build:
-      context: "docker/app/"
+      context: docker/app/
     ports:
       - "80:80"
     working_dir: /var/www/html
     volumes:
-      - "./src:/var/www/html"
-      - "./docker/app/apache2/apache2.conf:/etc/apache2/apache2.conf"
-      - "./docker/app/apache2/sites-available/000-default.conf:/etc/apache2/sites-available/000-default.conf"
+      - ./wordpress:/var/www/html
+      - ./src/plugins:/var/www/html/wp-content/plugins
+      - ./src/uploads:/var/www/html/wp-content/uploads
+      - ./src/themes:/var/www/html/wp-content/themes
+      - ./docker/app/apache2/apache2.conf:/etc/apache2/apache2.conf
+      - ./docker/app/apache2/sites-available/000-default.conf:/etc/apache2/sites-available/000-default.conf
+      # - ./dist:/var/www/html/assets
+      - assets:/var/www/html/assets
+    environment:
+      WORDPRESS_DEBUG: 1
+      WORDPRESS_DB_NAME: ${MYSQL_DATABASE}
+      WORDPRESS_DB_USER: ${MYSQL_USER}
+      WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
+      WORDPRESS_DB_HOST: ${MYSQL_HOST}
     depends_on:
       - db
-    # env_file:
-    #   - .env
+    env_file:
+      - .env
+  browsersync:
+    container_name: browsersync
+    depends_on:
+      - wordpress
+    build:
+      context: ./src
+      dockerfile: ../docker/browsersync/Dockerfile
+    environment:
+      - SITE_URL=wordpress
+    env_file:
+      - ./.env
+    ports:
+      - 3000:3000
+      - 3001:3001
+    volumes:
+      - ./src/assets:/var/www/html/src
+      # - ./dist:/var/www/html/dist
+      - assets:/var/www/html/dist
+    command: "npm run dev"
   db:
     build:
       context: "docker/mysql/"
     command: --default-authentication-plugin=mysql_native_password
+    container_name: ${MYSQL_HOST}
+    hostname: ${MYSQL_HOST}
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_HOST: ${MYSQL_HOST}
@@ -25,13 +58,14 @@ services:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       TZ: Asia/Tokyo
     volumes:
-      - "./docker/mysql/storage/:/var/lib/mysql"
-      - "./docker/mysql/initdb/:/docker-entrypoint-initdb.d"
+      - ./docker/mysql/storage/:/var/lib/mysql
+      - ./docker/mysql/initdb/:/docker-entrypoint-initdb.d
     env_file:
       - .env
     ports:
       - "3306:3306"
   phpmyadmin:
+    container_name: phpmyadmin
     image: phpmyadmin:latest
     ports:
       - 8080:80
@@ -41,3 +75,5 @@ services:
       PMA_PASSWORD: ${MYSQL_PASSWORD}
     depends_on:
       - db
+volumes:
+  assets:
