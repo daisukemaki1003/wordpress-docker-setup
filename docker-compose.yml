@@ -1,5 +1,6 @@
 services:
   wordpress:
+    container_name: wordpress
     build:
       context: docker/app/
     ports:
@@ -25,6 +26,7 @@ services:
     env_file:
       - .env
   browsersync:
+    container_name: browsersync
     depends_on:
       - wordpress
     build:
