@@ -14,3 +14,5 @@ build/*
 dist/*
 src/*
 theme/*
+pnpm-lock.yaml
+.vscode/*
