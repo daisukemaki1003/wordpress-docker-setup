@@ -39,20 +39,39 @@
 
 ```
 .
+├── .cz-config.cjs
 ├── .env
-├── .env.exsample
+├── .env.example
 ├── .github
-│ └── workflows
+│   └── workflows
 ├── .gitignore
+├── .husky
 ├── Makefile
+├── README.md
+├── build
 ├── docker
-│ ├── app
-│ └── mysql
-├── docker-compose.tmp.yml
+│   ├── app
+│   ├── browsersync
+│   └── mysql
+├── docker-compose.init.yml
 ├── docker-compose.yml
+├── package.json
+├── pnpm-lock.yaml
 ├── scripts
+│   ├── export_all.sh
+│   ├── export_db.sh
+│   ├── export_src.sh
+│   └──  functions.sh
 ├── src
-└── README.md
+│   ├── assets
+│   ├── gulpfile.js
+│   ├── package.json
+│   ├── plugins
+│   ├── rollup.config.js
+│   ├── themes
+│   ├── tsconfig.json
+│   └── uploads
+└── wordpress
 ```
 
 ## 開発環境構築
