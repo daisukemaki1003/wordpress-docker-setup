@@ -12,6 +12,12 @@
   <img src="https://img.shields.io/badge/-Docker-1488C6.svg?logo=docker&style=for-the-badge">
 </p>
 
+<br>
+<br>
+プロジェクトの詳細と環境構築の手順については
+<a href="https://zenn.dev/maki_1003/articles/f1035a817d7a22" style="font-weight: 700">こちら</a>
+をご参照ください：
+
 ## 目次
 
 1. [環境](#環境)
