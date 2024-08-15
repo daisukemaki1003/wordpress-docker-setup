@@ -258,7 +258,7 @@ chmod 777 /var/log/xdebug.log
 exit
 ```
 
-### 参考資料
+## 参考資料
 
 [Wordpress の Docker 環境作成 (PHP8, apache, MariaDB, Xdebug)](https://zenn.dev/dragonarrow/articles/058fa1c8269ea2)
 
