@@ -13,7 +13,7 @@
 </p>
 
 プロジェクトの詳細と環境構築の手順については
-<a href="https://zenn.dev/maki_1003/articles/f1035a817d7a22" target="_blank" style="font-weight: 700">こちら</a>
+[こちら](https://zenn.dev/maki_1003/articles/f1035a817d7a22)
 をご参照ください：
 
 ## 目次
