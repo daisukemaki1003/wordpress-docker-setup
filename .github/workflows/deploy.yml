@@ -3,7 +3,8 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - main
+      - test
+      # - main
 
 jobs:
   deploy:
@@ -18,4 +19,4 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           server-dir: ${{ secrets.FTP_SERVER_DIR }}
-          local-dir: ./src/
+          local-dir: ./build/html/
