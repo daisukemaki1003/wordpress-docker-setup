@@ -1,18 +1,6 @@
 .DS_Store
 .env
 
-# 開発環境に関するファイル以外を無視
-wordpress/*
-theme/templates/*
-theme/functions.php
-theme/style.css
-docker/mysql/initdb/*
-docker/mysql/storage/*
+docker/mysql/initdb
 node_modules
-
-build/*
-dist/*
-src/*
-theme/*
-pnpm-lock.yaml
-.vscode/*
+build
