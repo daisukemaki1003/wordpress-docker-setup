@@ -11,7 +11,6 @@ RUN npm i
 # Copy all the Gulp related files
 COPY ./gulpfile.js ./gulpfile.js
 COPY ./rollup.config.js ./rollup.config.js
-
 COPY ./tsconfig.json ./tsconfig.json
 
 # Exposing port 3000 for the page to be served via BrowserSync

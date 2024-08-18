@@ -45,7 +45,6 @@ const paths = {
 const server = browserSync.create();
 const serve = (done) => {
     server.init({
-        // proxy: "http://localhost",
         proxy: "http://wordpress",
         port: 3000,
         open: false,
@@ -61,7 +60,7 @@ const reload = (done) => {
 /*
  * Clean
  */
-const clean = () => deleteAsync(['dist']);
+const clean = () => deleteAsync(['dist/**/*']);
 
 /*
  * SCSS

@@ -47,8 +47,7 @@ docker cp $container_id:/var/www/html/ ./build
 # ファイルのエクスポートが成功したことを通知
 echo "ファイルのエクスポートに成功"
 
-# コンテナが手動で起動された場合、コンテナを停止
+# コンテナが手動で起動された場合、すべてのサービスを停止
 if [ "$container_manually_started" = true ]; then
-    docker-compose stop "$service_name" >/dev/null
-    docker-compose stop db >/dev/null
+    docker-compose down >/dev/null
 fi
