@@ -1,0 +1,33 @@
+name: Test Deploy to FTP
+on:
+  workflow_dispatch:
+
+jobs:
+  test-deploy:
+    name: Test Deploy to Server
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Create Test Deploy File
+        run: |
+          echo "<html>" > test_deploy_folder/ftp-test.html
+          echo "<head><title>Test Deploy</title></head>" >> test_deploy_folder/ftp-test.html
+          echo "<body>" >> test_deploy_folder/ftp-test.html
+          echo "<h1>Test Deploy Successful!</h1>" >> test_deploy_folder/ftp-test.html
+          echo "<p>If you see this page, the test deploy was successful.</p>" >> test_deploy_folder/ftp-test.html
+          echo "<p>Date and Time: $(date)</p>" >> test_deploy_folder/ftp-test.html
+          echo "</body>" >> test_deploy_folder/ftp-test.html
+          echo "</html>" >> test_deploy_folder/ftp-test.html
+
+      - name: Deploy Test File to FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: ${{ secrets.FTP_SERVER_DIR }}
+          local-dir: ./test_deploy_folder/
+
+      - name: Notify for Manual Verification
+        run: echo "Test deploy completed. Please manually verify the test file on the FTP server."

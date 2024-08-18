@@ -2,8 +2,7 @@
 
 # ビルドディレクトリが存在しない場合に作成
 create_build_directory() {
-    if [ ! -d ./build ] 
-    then
+    if [ ! -d ./build ]; then
         mkdir -p ./build
     fi
 }
@@ -22,7 +21,7 @@ start_container_if_not_started() {
 
     # 指定されたイメージのコンテナが実行されていない場合に起動
     if [ -z "$container_id" ]; then
-        docker-compose up -d "$service_name" > /dev/null
+        docker-compose up -d "$service_name" >/dev/null
         container_manually_started=true
         container_id=$(get_container_id $service_name)
         echo ""
@@ -33,9 +32,8 @@ start_container_if_not_started() {
 
 # テーマディレクトリ内のsrcディレクトリを削除
 remove_src_directories_in_themes() {
-    for d in */ ; do
-        if [ -d "$d/src" ];
-        then
+    for d in */; do
+        if [ -d "$d/src" ]; then
             echo "テーマからsrcファイルを削除します: $d"
             rm -r "$d/src"
         fi

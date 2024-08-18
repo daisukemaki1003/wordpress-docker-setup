@@ -8,7 +8,7 @@ if [ -f "$current_path/../.env" ]; then
 fi
 
 # コンテナが手動で起動されたかどうか
-container_manually_started=false 
+container_manually_started=false
 
 # 環境変数からWordPressのイメージバージョンを取得
 WP_VERSION=${WP_VERSION:-latest}
@@ -48,7 +48,7 @@ docker cp $container_id:/var/www/html/ ./build
 echo "ファイルのエクスポートに成功"
 
 # コンテナが手動で起動された場合、コンテナを停止
-if [ "$container_manually_started" = true ] ; then
-    docker-compose stop "$service_name" > /dev/null
-    docker-compose stop db > /dev/null
+if [ "$container_manually_started" = true ]; then
+    docker-compose stop "$service_name" >/dev/null
+    docker-compose stop db >/dev/null
 fi
