@@ -1,17 +1,26 @@
 name: Deploy to FTP
 on:
   workflow_dispatch:
-  push:
+  pull_request:
     branches:
-      - test
-      # - main
+      - main
+    types:
+      - closed
 
 jobs:
   deploy:
-    name: DeployCoreServer
+    if: github.event.pull_request.merged == true
+    name: DeployServer
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
+      - name: Generate Deploy Data
+        run: sh ./scripts/export_all.sh
+
+      - name: Check if Deploy Data Exists
+        run: sh ./scripts/deploy_validator.sh
+
       - name: Sync files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:

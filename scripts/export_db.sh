@@ -8,13 +8,13 @@ if [ -f "$current_path/../.env" ]; then
 fi
 
 # コンテナが手動で起動されたか、すでに起動されていたかどうか
-container_manually_started=false 
+container_manually_started=false
 service_name="db"
 
 # ビルドディレクトリが存在することを確認
 create_build_directory
 
-echo "データベースのエクスポートが完了するまでお待ちください...";
+echo "データベースのエクスポートが完了するまでお待ちください..."
 
 # コンテナが起動していない場合は起動
 start_container_if_not_started "$service_name"
@@ -32,6 +32,6 @@ docker cp $container_id:/db.sql ./build/db.sql
 echo "データベースが正常にコピーされました。"
 
 # コンテナが手動で起動された場合は停止
-if [ "$container_manually_started" = true ] ; then
-    docker-compose stop "$service_name" > /dev/null
+if [ "$container_manually_started" = true ]; then
+    docker-compose stop "$service_name" >/dev/null
 fi
