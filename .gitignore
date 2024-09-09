@@ -4,3 +4,4 @@
 docker/mysql/initdb
 node_modules
 build
+wordpress
