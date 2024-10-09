@@ -29,8 +29,6 @@ function use_templates_folder($template)
 }
 add_filter('template_include', 'use_templates_folder', 99);
 
-
-
 /** ------------------------------------------ */
 /** --------------- カスタム関数 --------------- */
 /** ------------------------------------------ */
