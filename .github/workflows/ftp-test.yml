@@ -9,6 +9,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Create Test Deploy Folder
+        run: mkdir -p test_deploy_folder
+
       - name: Create Test Deploy File
         run: |
           echo "<html>" > test_deploy_folder/ftp-test.html
