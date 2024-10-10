@@ -29,4 +29,13 @@
     <header class="header_block">
         <h1><?php bloginfo('name'); ?></h1>
         <p><?php bloginfo('description'); ?></p>
+
+        test
+        test
+        test
+
+        test
+        test
+        test
+        test
     </header>
