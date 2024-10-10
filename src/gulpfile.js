@@ -26,16 +26,19 @@ import deploy from './rollup.config.js';
 
 const paths = {
     rootDir: 'dist',
+    php: {
+        src: 'src/themes/**/*.php',
+    },
     styles: {
-        src: 'src/css/**/*.scss',
+        src: 'src/assets/css/**/*.scss',
         dest: 'dist/css',
     },
     scripts: {
-        src: 'src/js/**/*.{js,jsx,ts,tsx}',
+        src: 'src/assets/js/**/*.{js,jsx,ts,tsx}',
         dest: 'dist/js',
     },
     images: {
-        src: 'src/img/**/*.{jpg,jpeg,png,svg,gif}',
+        src: 'src/assets/img/**/*.{jpg,jpeg,png,svg,gif}',
         dest: 'dist/img',
     },
     dist: {},
@@ -125,6 +128,7 @@ const Imagemin = (done) => {
 };
 
 const watchFiles = () => {
+    watch(paths.php.src, reload); // PHPのホットリロード
     watch(paths.scripts.src, series(scripts, reload)); // JavaScriptのホットリロード
     watch(paths.styles.src, styles); // CSSのホットリロード
     watch(paths.images.src, Imagemin); // 画像の変更を監視

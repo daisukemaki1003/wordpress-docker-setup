@@ -37,7 +37,7 @@ services:
       - 3000:3000
       - 3001:3001
     volumes:
-      - ./src/assets:/var/www/html/src
+      - ./src:/var/www/html/src
       - assets:/var/www/html/dist
     command: "npm run dev"
   db:
