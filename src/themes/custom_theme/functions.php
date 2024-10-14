@@ -39,7 +39,7 @@ add_filter('template_include', 'use_templates_folder', 99);
  * 
  * @param string $name ファイル名（拡張子は省略）
  */
-function get_component($name)
+function use_component($name)
 {
 	$file = get_template_directory() . "/components/{$name}.php";
 

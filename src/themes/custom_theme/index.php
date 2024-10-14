@@ -1,5 +1,5 @@
 <?php
-get_component('header');
+use_component('header');
 ?>
 
 <div class="index_page">
@@ -7,5 +7,5 @@ get_component('header');
 </div>
 
 <?php
-get_component('footer');
+use_component('footer');
 ?>
