@@ -56,7 +56,9 @@ reset:
 	fi
 
 reset-app:
-	@rm -rf src/*
+	@rm -rf src/node_modules
+	@rm -rf src/package-lock.json
+	@rm -rf src/dist
 reset-db:
 	@rm -rf docker/mysql/storage
 

@@ -29,6 +29,7 @@ services:
     build:
       context: ./src
       dockerfile: ../docker/browsersync/Dockerfile
+    platform: linux/amd64
     environment:
       - SITE_URL=wordpress
     env_file:
@@ -39,7 +40,7 @@ services:
     volumes:
       - ./src:/var/www/html
       - assets:/var/www/html/dist
-    command: "npm run dev"
+    command: "pnpm run dev"
   db:
     build:
       context: "docker/mysql/"

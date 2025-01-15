@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vite build",
     "serve": "vite preview"
   },
@@ -12,7 +12,8 @@
     "glob": "^11.0.0",
     "typescript": "^5.7.2",
     "vite": "^5.4.11",
-    "vite-plugin-sass-glob-import": "^4.1.0"
+    "vite-plugin-sass-glob-import": "^4.1.0",
+    "@rollup/rollup-linux-x64-gnu": "4.6.1"
   },
   "dependencies": {}
 }

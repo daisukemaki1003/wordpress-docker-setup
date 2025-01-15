@@ -1,20 +1,27 @@
+# x86 アーキテクチャを明示的に指定
 FROM node:18
 
+# pnpm をグローバルインストール
+RUN npm install -g pnpm
+
+# 作業ディレクトリを設定
 WORKDIR /var/www/html
 
-# Copying our package.json containing all the necessary dependencies
-COPY package.json /var/www/html/package.json
+# 必要なファイルのみ先にコピー (依存関係のキャッシュ効率化)
+COPY package.json tsconfig.json vite.config.js ./
 
-# Installing Gulp, BrowserSync and other necessary packages
+# 依存関係をインストール (devDependencies も含む)
 RUN pnpm i
 
-# Copy all the Gulp related files
+# プロジェクト全体をコピー
 COPY . .
 
-# Exposing port 3000 for the page to be served via BrowserSync
-EXPOSE 3000
+# 必要なポートを公開
+EXPOSE 3000 3001
 
-# Exposing port 3001 for the admin console for BrowserSync
-EXPOSE 3001
+# デバッグ用 CMD
+# 開発中は tail コマンドを使ってコンテナを停止させない
+# CMD ["tail", "-f", "/dev/null"]
 
-CMD ["pnpm run dev"]
+# 本番運用時用 CMD
+CMD ["pnpm", "run", "dev"]
