@@ -1,21 +1,17 @@
 {
-    "compilerOptions": {
-        "target": "ES6",
-        "module": "ES6",
-        "moduleResolution": "node",
-        "sourceMap": true,
-        "outDir": "./dist",
-        "strict": true,
-        "esModuleInterop": true,
-        "skipLibCheck": true,
-        "baseUrl": "./theme",
-        "paths": {
-            "@/*": [
-                "./*"
-            ]
-        }
-    },
-    "include": [
-        "assets/**/*"
-    ]
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "strict": true,
+    "baseUrl": "./",
+    "paths": {
+      "@/*": [
+        "assets/*"
+      ]
+    }
+  },
+  "include": [
+    "assets/**/*"
+  ]
 }

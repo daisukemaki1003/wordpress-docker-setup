@@ -1,4 +1,4 @@
-FROM node:14
+FROM node:18
 
 WORKDIR /var/www/html
 
@@ -6,12 +6,10 @@ WORKDIR /var/www/html
 COPY package.json /var/www/html/package.json
 
 # Installing Gulp, BrowserSync and other necessary packages
-RUN npm i
+RUN pnpm i
 
 # Copy all the Gulp related files
-COPY ./gulpfile.js ./gulpfile.js
-COPY ./rollup.config.js ./rollup.config.js
-COPY ./tsconfig.json ./tsconfig.json
+COPY . .
 
 # Exposing port 3000 for the page to be served via BrowserSync
 EXPOSE 3000
@@ -19,4 +17,4 @@ EXPOSE 3000
 # Exposing port 3001 for the admin console for BrowserSync
 EXPOSE 3001
 
-CMD ["npm run dev"]
+CMD ["pnpm run dev"]

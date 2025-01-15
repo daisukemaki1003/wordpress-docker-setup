@@ -1,35 +1,35 @@
-@use "./common/module" as *;
+@use "./module" as *;
 
 .is-pc {
-    display: block;
+  display: block;
 
-    @include sp {
-        display: none;
-    }
+  @include sp {
+    display: none;
+  }
 }
 
 .is-sp {
-    display: none;
+  display: none;
 
-    @include sp {
-        display: block;
-    }
+  @include sp {
+    display: block;
+  }
 }
 
 [data-anim-elm] {
-    opacity: 0;
+  opacity: 0;
 }
 
 [v-cloak] {
-    display: none;
+  display: none;
 }
 
 table {
-    width: 100%;
-    border-collapse: collapse;
+  width: 100%;
+  border-collapse: collapse;
 }
 
 button {
-    outline: none;
-    background: none;
+  outline: none;
+  background: none;
 }
