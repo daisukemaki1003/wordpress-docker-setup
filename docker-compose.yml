@@ -8,16 +8,16 @@ services:
     working_dir: /var/www/html
     volumes:
       - ./wordpress:/var/www/html
-      - ./themes:/var/www/html/wp-content/themes
       - ./docker/app/apache2/apache2.conf:/etc/apache2/apache2.conf
       - ./docker/app/apache2/sites-available/000-default.conf:/etc/apache2/sites-available/000-default.conf
-      - assets:/var/www/html//wp-content/themes/assets
+      - assets:/var/www/html//wp-content/themes/${WP_THEME}/assets
     environment:
       WORDPRESS_DEBUG: 1
       WORDPRESS_DB_NAME: ${MYSQL_DATABASE}
       WORDPRESS_DB_USER: ${MYSQL_USER}
       WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
       WORDPRESS_DB_HOST: ${MYSQL_HOST}
+      SITE_URL: http://localhost:3000
     depends_on:
       - db
     env_file:
@@ -30,8 +30,6 @@ services:
       context: ./src
       dockerfile: ../docker/browsersync/Dockerfile
     platform: linux/amd64
-    environment:
-      - SITE_URL=wordpress
     env_file:
       - ./.env
     ports:
@@ -40,7 +38,7 @@ services:
     volumes:
       - ./src:/var/www/html
       - assets:/var/www/html/dist
-    command: "pnpm run dev"
+    command: ["sh", "-c", "pnpm install && pnpm run dev"]
   db:
     build:
       context: "docker/mysql/"

@@ -23,8 +23,5 @@ const jsFiles = createInputObject('assets/js/**/*.js', { ignore: ['node_modules/
 // SCSSファイル
 const scssFiles = createInputObject('assets/css/**/*.scss', { ignore: ['assets/css/**/_*.scss'] });
 
-// HTMLファイル
-// const htmlFiles = createInputObject('**/*.html', { ignore: ['node_modules/**', '**/dist/**'] });
-
 // すべての入力ファイルを結合
 export const inputFiles = { ...scssFiles, ...jsFiles };

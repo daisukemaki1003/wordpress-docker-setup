@@ -15,10 +15,6 @@ export default defineConfig({
                 target: 'http://wordpress', // WordPress サイトの URL
                 changeOrigin: true,
                 secure: false,
-                rewrite: (path) => path.replace(/^\/$/, '/'), // 必要に応じてパスを書き換える
-            },
-            watch: {
-                ignored: ["!**/*.php"], // PHP ファイルも監視
             },
         },
     },

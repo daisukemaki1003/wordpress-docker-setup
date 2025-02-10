@@ -11,7 +11,7 @@ WORKDIR /var/www/html
 COPY package.json tsconfig.json vite.config.js ./
 
 # 依存関係をインストール (devDependencies も含む)
-RUN pnpm i
+# RUN pnpm i
 
 # プロジェクト全体をコピー
 COPY . .
@@ -24,4 +24,4 @@ EXPOSE 3000 3001
 # CMD ["tail", "-f", "/dev/null"]
 
 # 本番運用時用 CMD
-CMD ["pnpm", "run", "dev"]
+CMD ["sh", "-c", "pnpm install && pnpm run dev"]

@@ -2,6 +2,7 @@
 .env
 
 docker/mysql/initdb
+docker/mysql/storage
 node_modules
 build
 
